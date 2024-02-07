@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Calculator using javascript-Alireza</title>
+	<link rel="stylesheet" type="text/css" href="styles.css"/>
+</head>
+<script>
+	var decimalValue = false;
+	function checkDecimal(val){
+	var screenValue = document.getElementById("display").value;
+		if(decimalValue == false){
+			decimalValue = true;
+			document.getElementById("display").value = screenValue + val;
+		}
+	}
+	var operator = null;
+	function operatorSelection(op){
+		decimalValue = false;
+		var screenValue = document.getElementById("display").value;
+		if(screenValue != ''){
+			if(operator == null){
+				operator = op;
+				document.getElementById("display").value = screenValue + op;
+			}else{
+				stringValue = screenValue.toString();
+				var sliceValue = stringValue.slice(0, -1);
+				console.log("screenValue: "+screenValue);
+				document.getElementById("display").value = sliceValue + op;
+				operator = op;
+				
+			}
+			
+		}
+	}
+	function showScreen(val){
+		
+		operator = null;		
+		var screenValue = document.getElementById("display").value;		
+		document.getElementById("display").value = screenValue + val; 
+	}
+	function result(){
+		var screenValue = document.getElementById("display").value;
+		document.getElementById("display").value = eval(screenValue);
+	}
+	function clearScreen(){
+		decimalValue = false;
+		operator = null;
+		document.getElementById("display").value = "";
+	}
+	function deleteBtn(){
+		var screenValue = document.getElementById("display").value;
+		stringValue = screenValue.toString();
+		var myChar = stringValue.charAt(stringValue.length -1);
+		if(myChar == '.'){
+			decimalValue = false;
+		}
+		if(myChar == '*' || myChar == '/' || myChar == '+' || myChar == '-'){
+			operator = null;
+		}
+		var sliceValue = stringValue.slice(0, -1);
+		document.getElementById("display").value = ''+sliceValue;
+		
+	}
+</script>
+<body>
+	<div id="container">
+		<div class="calculator">
+			<form>
+				<div class="display">
+					<input type="text" id="display"/>
+				</div>
+				<div>
+					<input type="button" value="AC" onclick= "clearScreen() " class="operator"/>
+					<input type="button" value="DE" onclick= "deleteBtn() " class="operator"/>
+					<input type="button" value="." onclick= "checkDecimal('.')" class="operator"/>
+					<input type="button" value="/" onclick= "operatorSelection('/') " class="operator"/>
+				</div>
+				<div>
+					<input type="button" value="7" onclick= "showScreen(7) "/> 
+					<input type="button" value="8" onclick= "showScreen(8) "/> 
+					<input type="button" value="9" onclick= "showScreen(9) "/>
+					<input type="button" value="*" onclick= "operatorSelection('*') " class="operator"/>
+				</div>
+				<div>
+					<input type="button" value="4" onclick= "showScreen(4) "/>
+					<input type="button" value="5" onclick= "showScreen(5) "/>
+					<input type="button" value="6" onclick= "showScreen(6) "/>
+					<input type="button" value="-" onclick= "operatorSelection('-') " class="operator"/>
+				</div>
+				<div>
+					<input type="button" value="1" onclick= "showScreen(1) "/>
+					<input type="button" value="2" onclick= "showScreen(2) "/>
+					<input type="button" value="3" onclick= "showScreen(3) "/>
+					<input type="button" value="+" onclick= "operatorSelection('+') " class="operator"/>
+				</div>
+				<div>
+					<input type="button" value="00" onclick= "showScreen(00) "/>
+					<input type="button" value="0" onclick= "showScreen(0) " />
+					<input type="button" value="=" class="equal operator" onclick="result()"/>			
+				</div>
+			</form>
+		</div>
+	
+	</div>
+</body>
+</html>
