@@ -41,7 +41,8 @@
 	}
 	function result(){
 		var screenValue = document.getElementById("display").value;
-		document.getElementById("display").value = eval(screenValue);
+		var rounded = Math.round((eval(screenValue) + Number.EPSILON) * 100) / 100;
+		document.getElementById("display").value = eval(rounded);
 	}
 	function clearScreen(){
 		decimalValue = false;
@@ -68,7 +69,7 @@
 		<div class="calculator">
 			<form>
 				<div class="display">
-					<input type="text" id="display"/>
+					<input type="text" id="display" disabled="true"/>
 				</div>
 				<div>
 					<input type="button" value="AC" onclick= "clearScreen() " class="operator"/>
